@@ -1,0 +1,24 @@
+{
+  "name": "BailingHub 业务后台",
+  "name_zh": "BailingHub 业务后台",
+  "name_en": "BailingHub Business Operations",
+  "description": "让 WorkBuddy 直接查询和操作已接入 BailingHub 的业务后台，最终权限与业务规则仍由你的系统决定。",
+  "description_zh": "让 WorkBuddy 直接查询和操作已接入 BailingHub 的业务后台，最终权限与业务规则仍由你的系统决定。",
+  "description_en": "Let WorkBuddy operate systems connected to BailingHub while your system keeps final control.",
+  "source": "bailinghub-agent-client",
+  "type": "mcp",
+  "version": "0.1.0",
+  "minWorkbuddyVersion": "5.0.0",
+  "examples_zh": [
+    "查看最近 7 天订单，并把异常订单整理出来",
+    "把库存低于 10 件的商品找出来，生成并执行补货计划",
+    "把员工资料修改为我刚才提供的内容",
+    "为这笔订单发起退款，如果需要审批先告诉我进度"
+  ],
+  "examples_en": [
+    "Review orders from the last seven days and list the exceptions",
+    "Find products with fewer than ten units and execute a replenishment plan",
+    "Update the employee profile with the details I just provided",
+    "Start a refund for this order and tell me if approval is required"
+  ]
+}

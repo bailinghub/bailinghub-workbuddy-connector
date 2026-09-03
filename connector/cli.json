@@ -1,0 +1,39 @@
+{
+  "runtime": {
+    "type": "node",
+    "version": ">=20.15"
+  },
+  "init": {
+    "darwin": "npm install -g bailinghub-workbuddy-connector@0.1.0",
+    "linux": "npm install -g bailinghub-workbuddy-connector@0.1.0",
+    "win32": "npm.cmd install -g bailinghub-workbuddy-connector@0.1.0"
+  },
+  "versionCheck": {
+    "command": {
+      "darwin": "bailinghub-workbuddy --version",
+      "linux": "bailinghub-workbuddy --version",
+      "win32": "bailinghub-workbuddy.cmd --version"
+    },
+    "minVersion": "0.1.0"
+  },
+  "auth": {
+    "darwin": "bailinghub-workbuddy auth",
+    "linux": "bailinghub-workbuddy auth",
+    "win32": "bailinghub-workbuddy.cmd auth"
+  },
+  "unAuth": {
+    "darwin": "bailinghub-workbuddy logout",
+    "linux": "bailinghub-workbuddy logout",
+    "win32": "bailinghub-workbuddy.cmd logout"
+  },
+  "status": {
+    "darwin": "bailinghub-workbuddy status",
+    "linux": "bailinghub-workbuddy status",
+    "win32": "bailinghub-workbuddy.cmd status"
+  },
+  "statusMatchJson": {
+    "authenticated": "true"
+  },
+  "authWaitForExit": true,
+  "authSuppressBrowser": true
+}

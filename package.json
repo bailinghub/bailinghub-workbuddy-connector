@@ -1,0 +1,68 @@
+{
+  "name": "bailinghub-workbuddy-connector",
+  "version": "0.1.0",
+  "description": "Let WorkBuddy operate systems connected to BailingHub while your system keeps final control.",
+  "license": "MIT",
+  "author": "BailingHub Contributors",
+  "homepage": "https://github.com/bailinghub/bailinghub-workbuddy-connector#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bailinghub/bailinghub-workbuddy-connector.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bailinghub/bailinghub-workbuddy-connector/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "bailinghub-workbuddy": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "README.zh-CN.md",
+    "SECURITY.md",
+    "PRIVACY.md",
+    "LICENSE",
+    "NOTICE",
+    "npm-shrinkwrap.json",
+    "THIRD_PARTY_NOTICES.md",
+    "sbom.cyclonedx.json"
+  ],
+  "engines": {
+    "node": ">=20.15"
+  },
+  "scripts": {
+    "clean": "node scripts/clean-dist.mjs",
+    "build": "npm run clean && tsc -p tsconfig.json && node scripts/ensure-bin-executable.mjs",
+    "test": "npm run build && node --test tests/*.test.mjs",
+    "check:secrets": "node scripts/check-secrets.mjs",
+    "check:connector": "node scripts/check-connector.mjs",
+    "check:pack": "node scripts/check-npm-pack.mjs",
+    "check:installed-graph": "node scripts/check-installed-graph.mjs",
+    "audit:production": "npm audit --omit=dev --audit-level=high",
+    "supply-chain:generate": "node scripts/generate-supply-chain.mjs",
+    "supply-chain:check": "node scripts/generate-supply-chain.mjs --check",
+    "connector:build": "npm run build && npm run check:connector && node scripts/build-connector.mjs && npm run check:secrets",
+    "verify": "npm test && npm run supply-chain:check && npm run connector:build && node scripts/verify-reproducible.mjs && npm run check:pack && npm run check:installed-graph && npm run audit:production",
+    "prepack": "npm run verify"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.30.0",
+    "bailinghub-mcp-server": "0.3.0",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "22.15.0",
+    "typescript": "5.9.3"
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "keywords": []
+}

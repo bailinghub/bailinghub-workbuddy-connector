@@ -1,0 +1,19 @@
+{
+  "preAuth": "cli",
+  "mcpServers": {
+    "bailinghub-agent-client": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "bailinghub-workbuddy-connector@0.1.0",
+        "mcp"
+      ],
+      "timeout": 30000,
+      "runtime": {
+        "type": "node",
+        "version": ">=20.15"
+      }
+    }
+  }
+}

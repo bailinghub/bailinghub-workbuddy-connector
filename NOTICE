@@ -1,0 +1,10 @@
+BailingHub WorkBuddy Connector
+Copyright (c) 2026 BailingHub Contributors
+
+This distribution includes the BailingHub name and official geometric mark.
+The mark identifies the BailingHub connector and does not imply endorsement by
+WorkBuddy or by any third-party business platform.
+
+Runtime dependencies retain their respective licenses. The generated
+THIRD_PARTY_NOTICES.md and sbom.cyclonedx.json inventories are release artifacts;
+npm-shrinkwrap.json is published as the exact CLI dependency-resolution source.

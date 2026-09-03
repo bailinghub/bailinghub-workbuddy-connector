@@ -57,7 +57,7 @@ npm test
 npm run verify
 ```
 
-`npm run connector:build` 生成可复现的 `artifacts/bailinghub-workbuddy-connector-0.1.0.zip`。ZIP 只包含 WorkBuddy 元数据、MCP/CLI 配置、Skill 和图标；它指向精确版本的 npm 运行时包。在该 npm 版本公开可解析之前，不应上传 ZIP 进入市场审核。
+`npm run connector:build` 生成可复现的 `artifacts/bailinghub-workbuddy-connector-0.1.1.zip`。ZIP 只包含 WorkBuddy 元数据、MCP/CLI 配置、Skill 和图标；它指向精确版本的 npm 运行时包。在该 npm 版本公开可解析之前，不应上传 ZIP 进入市场审核。
 
 ## 凭据存储
 

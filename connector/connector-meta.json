@@ -7,7 +7,7 @@
   "description_en": "Let WorkBuddy operate systems connected to BailingHub while your system keeps final control.",
   "source": "bailinghub-agent-client",
   "type": "mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "minWorkbuddyVersion": "5.0.0",
   "examples_zh": [
     "查看最近 7 天订单，并把异常订单整理出来",

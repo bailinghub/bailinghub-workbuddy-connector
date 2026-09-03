@@ -130,8 +130,13 @@ export function parseConnectionForm(
 
 async function closeServer(server: Server): Promise<void> {
   if (!server.listening) return;
-  await new Promise<void>((resolve) => server.close(() => resolve()));
-  server.closeAllConnections();
+  await new Promise<void>((resolve, reject) => {
+    server.close((error) => {
+      if (error) reject(error);
+      else resolve();
+    });
+    server.closeAllConnections();
+  });
 }
 
 export async function collectConnectionConfiguration(
@@ -199,8 +204,7 @@ export async function collectConnectionConfiguration(
         const form = parseConnectionForm(Buffer.concat(chunks).toString('utf8'), csrf, platform);
         settled = true;
         response.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-        response.end(completedHtml());
-        settle?.resolve(form);
+        response.end(completedHtml(), () => settle?.resolve(form));
       } catch (error) {
         const message = error instanceof Error ? error.message : '配置无效。';
         response.writeHead(400, { 'Content-Type': 'text/html; charset=utf-8' });

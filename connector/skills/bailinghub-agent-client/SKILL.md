@@ -3,7 +3,7 @@ name: bailinghub-agent-client
 description: Use BailingHub when the user wants WorkBuddy to query or operate a business system that their organization has connected to BailingHub.
 description_zh: 当用户希望 WorkBuddy 查询或操作已接入 BailingHub 的业务系统时使用。
 description_en: Use BailingHub when WorkBuddy needs to query or operate a business system already connected by the user's organization.
-version: 0.1.0
+version: 0.1.1
 author: BailingHub Contributors
 ---
 

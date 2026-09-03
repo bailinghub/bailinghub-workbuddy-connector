@@ -2,7 +2,7 @@
 
 ## Supported line
 
-Only the latest released connector version is supported. This `0.1.0` tree is a pre-release candidate until its npm runtime and WorkBuddy ZIP have passed their separate publication gates.
+Only the latest released connector version is supported. A version under development remains a pre-release candidate until its npm runtime and WorkBuddy ZIP have passed their separate publication gates.
 
 ## Report a vulnerability
 

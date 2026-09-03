@@ -1,6 +1,6 @@
 {
   "name": "bailinghub-workbuddy-connector",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Let WorkBuddy operate systems connected to BailingHub while your system keeps final control.",
   "license": "MIT",
   "author": "BailingHub Contributors",

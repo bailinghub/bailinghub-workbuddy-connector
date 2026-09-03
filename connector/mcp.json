@@ -6,7 +6,7 @@
       "command": "npx",
       "args": [
         "-y",
-        "bailinghub-workbuddy-connector@0.1.0",
+        "bailinghub-workbuddy-connector@0.1.1",
         "mcp"
       ],
       "timeout": 30000,

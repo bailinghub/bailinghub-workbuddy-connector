@@ -49,7 +49,7 @@ npm test
 npm run verify
 ```
 
-`npm run connector:build` creates the reproducible `artifacts/bailinghub-workbuddy-connector-0.1.0.zip`. The ZIP contains only WorkBuddy metadata, MCP/CLI manifests, the Skill, and the icon. It references an exact npm runtime version; do not submit the ZIP until that version resolves publicly.
+`npm run connector:build` creates the reproducible `artifacts/bailinghub-workbuddy-connector-0.1.1.zip`. The ZIP contains only WorkBuddy metadata, MCP/CLI manifests, the Skill, and the icon. It references an exact npm runtime version; do not submit the ZIP until that version resolves publicly.
 
 Credential storage uses macOS Keychain, Windows CurrentUser DPAPI, or—only after an explicit one-time Linux confirmation—a current-user-owned mode-0600 file.
 

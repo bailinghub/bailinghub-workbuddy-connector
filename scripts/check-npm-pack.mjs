@@ -23,6 +23,9 @@ const actual = candidate.files.map((file) => file.path).sort((a, b) => a.localeC
 const expected = [...npmFileAllowlist].sort((a, b) => a.localeCompare(b, 'en'));
 assert.deepEqual(actual, expected, 'npm pack content differs from the fixed release allowlist');
 const executable = candidate.files.find((file) => file.path === 'dist/index.js');
-assert.ok(executable && (executable.mode & 0o111) !== 0, 'npm executable must retain an execute bit');
+assert.ok(executable, 'npm executable is missing');
+if (process.platform !== 'win32') {
+  assert.ok((executable.mode & 0o111) !== 0, 'npm executable must retain an execute bit on POSIX');
+}
 
 process.stdout.write(`npm pack allowlist passed for ${actual.length} files.\n`);

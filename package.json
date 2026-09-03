@@ -40,7 +40,7 @@
   "scripts": {
     "clean": "node scripts/clean-dist.mjs",
     "build": "npm run clean && tsc -p tsconfig.json && node scripts/ensure-bin-executable.mjs",
-    "test": "npm run build && node --test tests/*.test.mjs",
+    "test": "npm run build && node --test",
     "check:secrets": "node scripts/check-secrets.mjs",
     "check:connector": "node scripts/check-connector.mjs",
     "check:pack": "node scripts/check-npm-pack.mjs",

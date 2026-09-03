@@ -5,8 +5,9 @@ import { promisify } from 'node:util';
 import { npmFileAllowlist, packageMetadata, projectRoot } from './release-config.mjs';
 
 const execute = promisify(execFile);
-const npm = process.platform === 'win32' ? 'npm.cmd' : 'npm';
-const { stdout } = await execute(npm, ['pack', '--dry-run', '--ignore-scripts', '--json'], {
+const npmCli = process.env.npm_execpath;
+assert.ok(npmCli, 'Run the npm pack check through npm run');
+const { stdout } = await execute(process.execPath, [npmCli, 'pack', '--dry-run', '--ignore-scripts', '--json'], {
   cwd: projectRoot,
   encoding: 'utf8',
   maxBuffer: 10 * 1024 * 1024,

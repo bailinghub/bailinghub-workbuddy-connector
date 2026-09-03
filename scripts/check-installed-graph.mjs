@@ -8,7 +8,8 @@ import { promisify } from 'node:util';
 import { packageMetadata, projectRoot } from './release-config.mjs';
 
 const execute = promisify(execFile);
-const npm = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+const npmCli = process.env.npm_execpath;
+assert.ok(npmCli, 'Run the installed graph check through npm run');
 
 async function collectPackages(nodeModulesPath, result = new Set()) {
   const entries = await readdir(nodeModulesPath, { withFileTypes: true }).catch(() => []);
@@ -34,8 +35,8 @@ async function collectPackages(nodeModulesPath, result = new Set()) {
 const temporaryRoot = await mkdtemp(join(tmpdir(), 'bailinghub-workbuddy-install-check-'));
 try {
   const manifest = await packageMetadata();
-  const { stdout: packOutput } = await execute(npm, [
-    'pack', '--ignore-scripts', '--json', '--pack-destination', temporaryRoot,
+  const { stdout: packOutput } = await execute(process.execPath, [
+    npmCli, 'pack', '--ignore-scripts', '--json', '--pack-destination', temporaryRoot,
   ], {
     cwd: projectRoot,
     encoding: 'utf8',
@@ -51,8 +52,8 @@ try {
     version: '0.0.0',
     private: true,
   }, null, 2)}\n`);
-  await execute(npm, [
-    'install', '--ignore-scripts', '--no-audit', '--no-fund', '--prefix', installRoot, archive,
+  await execute(process.execPath, [
+    npmCli, 'install', '--ignore-scripts', '--no-audit', '--no-fund', '--prefix', installRoot, archive,
   ], {
     cwd: temporaryRoot,
     encoding: 'utf8',
@@ -65,10 +66,8 @@ try {
   const expected = new Set(sbom.components.map((item) => `${item.name}@${item.version}`));
   assert.deepEqual([...installed].sort(), [...expected].sort(), 'Installed production graph differs from the published SBOM');
 
-  const executable = process.platform === 'win32'
-    ? join(installRoot, 'node_modules', '.bin', 'bailinghub-workbuddy.cmd')
-    : join(installRoot, 'node_modules', '.bin', 'bailinghub-workbuddy');
-  const { stdout: versionOutput } = await execute(executable, ['--version'], { encoding: 'utf8' });
+  const executable = join(installRoot, 'node_modules', manifest.name, 'dist', 'index.js');
+  const { stdout: versionOutput } = await execute(process.execPath, [executable, '--version'], { encoding: 'utf8' });
   assert.equal(versionOutput.trim(), manifest.version, 'Installed CLI version check failed');
   process.stdout.write(`Installed tarball graph matches ${expected.size} SBOM components.\n`);
 } finally {

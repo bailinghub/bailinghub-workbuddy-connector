@@ -1,5 +1,5 @@
 export const PACKAGE_NAME = 'bailinghub-workbuddy-connector';
-export const PACKAGE_VERSION = '0.1.1';
+export const PACKAGE_VERSION = '0.1.2';
 export const STORAGE_NAMESPACE = 'bailinghub-workbuddy';
 export const MCP_SERVER_NAME = 'bailinghub-workbuddy';
 

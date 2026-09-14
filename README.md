@@ -2,35 +2,53 @@
 
 [简体中文](README.zh-CN.md)
 
-Let a local WorkBuddy Agent query and operate commerce, SaaS, CRM, ERP, and other business systems already connected to BailingHub.
+Use WorkBuddy to look up commerce orders and perform authorized product operations in a business system connected to BailingHub. Users describe the task in chat; their business system keeps final control of access and business rules.
 
-This is an independent WorkBuddy ecosystem adapter. It is not part of BailingHub Core, ACC, the DeepSeek Harness plugin, or any specific business application.
+**Version 0.1.2 is a review candidate. It is not listed in the WorkBuddy connector marketplace.** The Chinese display name is **百灵中枢**; the English display name is **BailingHub Business Operations**. Package and integration identifiers remain unchanged.
 
-## User journey
+## What users can do
 
-1. Install **BailingHub Business Operations** from the WorkBuddy connector marketplace.
-2. Select **Connect**. A local browser page asks only for the developer-provided public `hubUrl`, `clientAppId`, `workspace`, and local `connectionName`.
-3. The browser opens the business application's own authorization page. The user signs in, switches account or tenant if needed, and approves access there.
-4. WorkBuddy plans locally. BailingHub projects the capabilities allowed for that trusted business identity and revalidates identity, authorization, ACC policy, approval, idempotency, limits, and audit on every invocation.
+Examples for a commerce system that declares the corresponding tools:
 
-The connector is not a business data provider. A developer must first deploy BailingHub, register a Client App and workspace, implement the business-owned authorization page, and connect business capabilities.
+- “Show orders from the last seven days and summarize their status.”
+- “Find products with fewer than ten units in stock and list them for review.”
+- “Change the display order of this test product to the value I provided. If approval is required, tell me its status.”
+- “Approval has completed. Check the result of the previous product change.”
 
-Never distribute a BailingHub Client Token, admin token, Tool Provider secret, business cookie, model key, or Agent Session token. End users enter only the four public connection fields.
+These are example requests, not built-in tools or a bundled demo. Available operations depend on the connected business system, the signed-in user's permissions, and the current capability catalog. Installing the connector does not automatically connect a commerce system, CRM, ERP, or multiple systems.
 
-## Runtime boundary
+## First connection
 
-The WorkBuddy bundle uses MCP + Skill with a pre-authentication CLI:
+1. Install the candidate connector through the WorkBuddy review workflow. Marketplace availability is pending review.
+2. Select **Connect**. The local browser configuration page asks for the developer-provided public `hubUrl`, `clientAppId`, and `workspace`, plus a local `connectionName`.
+3. The browser opens the business application's own authorization page. Sign in, select the permitted account or store, and approve access there.
+4. Return to WorkBuddy and make a business request. WorkBuddy plans locally; BailingHub returns the authorized capabilities and checks identity, authorization, policy, approval, idempotency, limits, and audit for each invocation.
 
-- the CLI owns human-facing setup, browser PKCE authorization, status, and revocation;
-- MCP exposes only five model tools: start, search, invoke, resume, and complete;
-- within one `run_id`, the same tool and normalized arguments always derive the same `invocation_id`; a WorkBuddy retry with a new JSON-RPC request id after a lost stdio response therefore cannot become a second business write. Intentionally repeating the exact same action requires a new visible user turn and a new `run_id`;
-- connection add/use/remove stays in user-owned CLI/settings and is never a model tool;
-- local run bindings retain only routing IDs, workspace, capability revision, active tool schemas, and pending invocation IDs—not credentials, user messages, tool arguments, or business response bodies.
-- WorkBuddy does not currently expose a trustworthy host conversation ID to stdio `tools/call`, so this first release maps each visible user turn to a separate BailingHub conversation to prevent cross-chat mixing. Continuous grouping can be added if the host later exposes a trusted conversation identifier.
+A developer must first deploy BailingHub with Agent Auth v1 and Agent Client Runtime v1, register a Client App and its workspace, provide the business-owned authorization page, and connect the required capability declarations. The authorization page derives identity from the business system's server-side login session, not from an identity supplied by the Agent. Without these prerequisites, reviewers can inspect installation and the connection form but cannot validate real business operations.
 
-The runtime pins `bailinghub-mcp-server@0.3.0` and the host storage namespace is always `bailinghub-workbuddy`.
+Do not distribute or enter Client Tokens, admin tokens, Tool Provider secrets, business cookies, model keys, or Agent Session tokens in chat or the public connection form. Users enter only the four non-secret connection fields; business credentials belong on the business application's authorization page.
 
-## Multiple connections
+## Review candidate 0.1.2
+
+- Chinese naming and examples focus on practical commerce tasks.
+- The runtime pins the stable SDK release `bailinghub-mcp-server@0.5.0`, upgraded from `0.3.0`.
+- CLI and MCP explicitly declare Node `>=20.15.0`, which also permits WorkBuddy-managed Node 22. Installation reports the Node/npm versions before installing; the Windows command uses `npm install`. This improves installation diagnostics but does not supply a missing managed runtime or repair the host's PATH. Windows WorkBuddy installation remains unverified, and the change does not establish the cause of every earlier installation error or indicate platform approval.
+
+See the [Chinese review guide](docs/REVIEW_GUIDE.zh-CN.md) for prerequisites, installation checks, and business acceptance steps.
+
+## Runtime and recovery boundary
+
+The bundle uses MCP + Skill with a pre-authentication CLI. The CLI handles setup, browser PKCE authorization, status, and revocation. MCP exposes only five tools: start, search, invoke, resume, and complete.
+
+Each visible user turn starts one `run_id`. Search and new capability calls in that turn use that run. The adapter currently isolates each visible turn into a separate BailingHub conversation; it does not claim to archive or automatically group the entire WorkBuddy chat.
+
+Within one run, the same tool and normalized arguments derive the same `invocation_id`. If a transport response is lost, a retry of that exact call keeps its invocation identity. An intentional repeat requires a new visible user request and a new run. When an invocation is pending approval, in progress, or has an unknown outcome, report its state and end the visible turn. On a later user request, resume the original `invocation_id`; its stored binding preserves the original run and connection. Do not submit a replacement write in the new turn. Completing a visible run does not mean the pending business action succeeded.
+
+Local recovery bindings retain routing IDs, workspace, capability revision, active tool schemas, pending invocation IDs, states, and timestamps. They do not store credentials, user messages, tool arguments, or business response bodies. Visible input, capability calls, and the final answer are sent to the selected BailingHub deployment as described in [PRIVACY.md](PRIVACY.md).
+
+## Connection management
+
+Users manage connections in CLI/settings; these actions are not model tools.
 
 ```bash
 bailinghub-workbuddy connections list
@@ -39,7 +57,7 @@ bailinghub-workbuddy connections use <connection-name>
 bailinghub-workbuddy connections remove <connection-name>
 ```
 
-Selection affects new sessions only. Existing runs remain pinned to their original connection and business identity. `logout` revokes only the current Agent Session; `connections remove` revokes and removes the selected local connection.
+Selection affects new runs only. Existing runs and pending invocations remain pinned to their original connection and business identity. `logout` revokes only the current Agent Session; `connections remove` revokes and removes the selected local connection. The storage namespace remains `bailinghub-workbuddy`.
 
 ## Development
 
@@ -49,10 +67,8 @@ npm test
 npm run verify
 ```
 
-`npm run connector:build` creates the reproducible `artifacts/bailinghub-workbuddy-connector-0.1.1.zip`. The ZIP contains only WorkBuddy metadata, MCP/CLI manifests, the Skill, and the icon. It references an exact npm runtime version; do not submit the ZIP until that version resolves publicly.
+`npm run connector:build` creates the reproducible `artifacts/bailinghub-workbuddy-connector-0.1.2.zip`. The ZIP contains WorkBuddy metadata, MCP/CLI manifests, the Skill, and the icon. It references an exact npm runtime version; do not submit the ZIP until that version resolves publicly.
 
-Credential storage uses macOS Keychain, Windows CurrentUser DPAPI, or—only after an explicit one-time Linux confirmation—a current-user-owned mode-0600 file.
+Credential storage uses macOS Keychain, Windows CurrentUser DPAPI, or—after an explicit one-time Linux confirmation—a current-user-owned mode-0600 file. See [SECURITY.md](SECURITY.md).
 
-See [PRIVACY.md](PRIVACY.md) and [SECURITY.md](SECURITY.md).
-
-Repository ownership and integration boundaries are documented in [PROJECT_BOUNDARIES.md](PROJECT_BOUNDARIES.md). Contributions are welcome through [CONTRIBUTING.md](CONTRIBUTING.md).
+This is an independent ecosystem adapter. Repository ownership and integration boundaries are documented in [PROJECT_BOUNDARIES.md](PROJECT_BOUNDARIES.md). Contributions are welcome through [CONTRIBUTING.md](CONTRIBUTING.md).

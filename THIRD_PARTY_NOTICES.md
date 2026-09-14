@@ -9,7 +9,7 @@ Generated deterministically from the production entries in the published `npm-sh
 | `accepts` | `2.0.0` | MIT |
 | `ajv` | `8.20.0` | MIT |
 | `ajv-formats` | `3.0.1` | MIT |
-| `bailinghub-mcp-server` | `0.3.0` | MIT |
+| `bailinghub-mcp-server` | `0.5.0` | MIT |
 | `body-parser` | `2.3.0` | MIT |
 | `bytes` | `3.1.2` | MIT |
 | `call-bind-apply-helpers` | `1.0.2` | MIT |
@@ -46,7 +46,7 @@ Generated deterministically from the production entries in the published `npm-sh
 | `gopd` | `1.2.0` | MIT |
 | `has-symbols` | `1.1.0` | MIT |
 | `hasown` | `2.0.4` | MIT |
-| `hono` | `4.13.5` | MIT |
+| `hono` | `4.13.7` | MIT |
 | `http-errors` | `2.0.1` | MIT |
 | `iconv-lite` | `0.7.3` | MIT |
 | `inherits` | `2.0.4` | ISC |
@@ -54,7 +54,7 @@ Generated deterministically from the production entries in the published `npm-sh
 | `ipaddr.js` | `1.9.1` | MIT |
 | `is-promise` | `4.0.0` | MIT |
 | `isexe` | `2.0.0` | ISC |
-| `jose` | `6.2.10` | MIT |
+| `jose` | `6.2.12` | MIT |
 | `json-schema-traverse` | `1.0.0` | MIT |
 | `json-schema-typed` | `8.0.2` | BSD-2-Clause |
 | `math-intrinsics` | `1.1.0` | MIT |

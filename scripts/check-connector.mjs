@@ -17,7 +17,11 @@ assert.match(meta.source, /^[a-z0-9]+(?:-[a-z0-9]+)*$/);
 assert.equal(meta.type, 'mcp');
 assert.equal(meta.version, packageManifest.version);
 assert.equal(meta.minWorkbuddyVersion, '5.0.0');
-assert.ok(meta.name && meta.name_en && meta.description && meta.description_en);
+assert.equal(meta.name, '百灵中枢');
+assert.equal(meta.name_zh, '百灵中枢');
+assert.match(meta.name_en, /BailingHub/);
+assert.match(meta.description_zh, /BailingHub/);
+assert.ok(meta.description && meta.description_en);
 assert.ok([...meta.description_en].length <= 100, 'Marketplace English description must be at most 100 characters');
 assert.match(meta.description_zh, /最终权限/);
 assert.match(meta.description_zh, /系统决定/);
@@ -31,16 +35,17 @@ assert.equal(server.type, 'stdio');
 assert.equal(server.command, 'npx');
 assert.deepEqual(server.args, ['-y', packageSpec, 'mcp']);
 assert.equal(server.runtime.type, 'node');
-assert.equal(server.runtime.version, '>=20.15');
+assert.equal(server.runtime.version, packageManifest.engines.node);
+assert.deepEqual(cli.runtime, { type: 'node', version: packageManifest.engines.node });
 assert.equal('env' in server, false);
 assert.equal('staticEnv' in server, false);
 
 for (const section of ['init', 'auth', 'unAuth', 'status']) {
   assert.deepEqual(Object.keys(cli[section]).sort(), ['darwin', 'linux', 'win32']);
 }
-assert.equal(cli.init.darwin, `npm install -g ${packageSpec}`);
-assert.equal(cli.init.linux, `npm install -g ${packageSpec}`);
-assert.equal(cli.init.win32, `npm.cmd install -g ${packageSpec}`);
+for (const platform of ['darwin', 'linux', 'win32']) {
+  assert.equal(cli.init[platform], `node --version && npm --version && npm install -g ${packageSpec}`);
+}
 assert.equal(cli.versionCheck.minVersion, packageManifest.version);
 assert.deepEqual(cli.statusMatchJson, { authenticated: 'true' });
 assert.equal('statusMatch' in cli, false, 'Use statusMatchJson exclusively');

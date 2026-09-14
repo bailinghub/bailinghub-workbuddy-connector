@@ -58,7 +58,7 @@ export async function addConnectionCommand(prefillCurrent = false): Promise<void
   const connection = registered.connection as Record<string, unknown>;
   const login = await transport.login({
     connectionKey: connection.connectionKey,
-    deviceLabel: 'WorkBuddy · BailingHub',
+    deviceLabel: 'WorkBuddy · 百灵中枢',
   });
   writeJson({
     authenticated: true,

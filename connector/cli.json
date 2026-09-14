@@ -1,12 +1,12 @@
 {
   "runtime": {
     "type": "node",
-    "version": ">=20.15"
+    "version": ">=20.15.0"
   },
   "init": {
-    "darwin": "npm install -g bailinghub-workbuddy-connector@0.1.1",
-    "linux": "npm install -g bailinghub-workbuddy-connector@0.1.1",
-    "win32": "npm.cmd install -g bailinghub-workbuddy-connector@0.1.1"
+    "darwin": "node --version && npm --version && npm install -g bailinghub-workbuddy-connector@0.1.2",
+    "linux": "node --version && npm --version && npm install -g bailinghub-workbuddy-connector@0.1.2",
+    "win32": "node --version && npm --version && npm install -g bailinghub-workbuddy-connector@0.1.2"
   },
   "versionCheck": {
     "command": {
@@ -14,7 +14,7 @@
       "linux": "bailinghub-workbuddy --version",
       "win32": "bailinghub-workbuddy.cmd --version"
     },
-    "minVersion": "0.1.1"
+    "minVersion": "0.1.2"
   },
   "auth": {
     "darwin": "bailinghub-workbuddy auth",

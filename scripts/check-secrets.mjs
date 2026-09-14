@@ -25,6 +25,8 @@ const genericRules = [
 async function sourceFiles(directory) {
   const result = [];
   for (const entry of await readdir(directory, { withFileTypes: true })) {
+    // In a linked worktree .git is a metadata pointer file, never a release file.
+    if (entry.name === '.git') continue;
     if (ignoredDirectories.has(entry.name) && (entry.isDirectory() || entry.isSymbolicLink())) continue;
     if (entry.isSymbolicLink()) {
       throw new Error(`Secret scan refuses a symbolic link: ${relative(projectRoot, join(directory, entry.name))}`);

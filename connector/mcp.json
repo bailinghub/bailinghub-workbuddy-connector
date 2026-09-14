@@ -6,13 +6,13 @@
       "command": "npx",
       "args": [
         "-y",
-        "bailinghub-workbuddy-connector@0.1.1",
+        "bailinghub-workbuddy-connector@0.1.2",
         "mcp"
       ],
       "timeout": 30000,
       "runtime": {
         "type": "node",
-        "version": ">=20.15"
+        "version": ">=20.15.0"
       }
     }
   }

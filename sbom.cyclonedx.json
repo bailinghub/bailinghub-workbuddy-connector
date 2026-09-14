@@ -13,7 +13,7 @@
     "component": {
       "type": "application",
       "name": "bailinghub-workbuddy-connector",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "licenses": [
         {
           "license": {
@@ -21,7 +21,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/bailinghub-workbuddy-connector@0.1.1"
+      "purl": "pkg:npm/bailinghub-workbuddy-connector@0.1.2"
     },
     "properties": [
       {
@@ -138,14 +138,14 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:npm/bailinghub-mcp-server@0.3.0",
+      "bom-ref": "pkg:npm/bailinghub-mcp-server@0.5.0",
       "name": "bailinghub-mcp-server",
-      "version": "0.3.0",
+      "version": "0.5.0",
       "scope": "required",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "8b822120bdd3b358c99405c1b1e0c17a61224cb1540ff98ae50d43a25462510a007b76f5e3d477d2a015b49bd5749704642bf53019d2003289b1a50cb939911a"
+          "content": "5ad1c09c304e9dd5309db6f6a65c44eb7da8d7e0ff993517e3d43d092f04bfe7a92fcefd5ba0dacc90a86f35efd84b006d16e49e069dfd88835bb7283c480e27"
         }
       ],
       "licenses": [
@@ -155,7 +155,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/bailinghub-mcp-server@0.3.0"
+      "purl": "pkg:npm/bailinghub-mcp-server@0.5.0"
     },
     {
       "type": "library",
@@ -915,14 +915,14 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:npm/hono@4.13.5",
+      "bom-ref": "pkg:npm/hono@4.13.7",
       "name": "hono",
-      "version": "4.13.5",
+      "version": "4.13.7",
       "scope": "required",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "3bafbf782611933cf3cb4acf5b028b886051d6716e50f6729e7c23c4dd4c040eb634da9b4f4c101334322b68123b9c83203077dfab1742578084e1ebce56322b"
+          "content": "73cfe017d69cf18efcfda804c55a1cc8b7af811f89969341e38e0fcb41525fca49a0f75851f53345c5ed604606c2dea5d7da8895564f37931fb30f6315286641"
         }
       ],
       "licenses": [
@@ -932,7 +932,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/hono@4.13.5"
+      "purl": "pkg:npm/hono@4.13.7"
     },
     {
       "type": "library",
@@ -1083,14 +1083,14 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:npm/jose@6.2.10",
+      "bom-ref": "pkg:npm/jose@6.2.12",
       "name": "jose",
-      "version": "6.2.10",
+      "version": "6.2.12",
       "scope": "required",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "8a25bb27da911651b1bc2388043043c4578f4129fb64c027ad81a1aeb3a8eac88efcc22ac1fca294b476ee991f0e0524fab68bbb30034bc0374bf28b062b1cd2"
+          "content": "f4d88598911ec74b32d83939f23d94181487814b36ca917d7994aee0beaf8ce5f70e9f7a4b0d45dee2fe1fe0f5b31d368d965dcd44f41e0bc2cb9f42baf5dc5b"
         }
       ],
       "licenses": [
@@ -1100,7 +1100,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/jose@6.2.10"
+      "purl": "pkg:npm/jose@6.2.12"
     },
     {
       "type": "library",

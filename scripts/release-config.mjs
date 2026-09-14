@@ -20,6 +20,7 @@ export const npmFileAllowlist = Object.freeze([
   'README.zh-CN.md',
   'SECURITY.md',
   'THIRD_PARTY_NOTICES.md',
+  'docs/REVIEW_GUIDE.zh-CN.md',
   'dist/cli.d.ts',
   'dist/cli.js',
   'dist/config-page.d.ts',

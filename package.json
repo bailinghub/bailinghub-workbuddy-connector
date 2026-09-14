@@ -1,6 +1,6 @@
 {
   "name": "bailinghub-workbuddy-connector",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Let WorkBuddy operate systems connected to BailingHub while your system keeps final control.",
   "license": "MIT",
   "author": "BailingHub Contributors",
@@ -26,6 +26,7 @@
     "dist",
     "README.md",
     "README.zh-CN.md",
+    "docs/REVIEW_GUIDE.zh-CN.md",
     "SECURITY.md",
     "PRIVACY.md",
     "LICENSE",
@@ -35,7 +36,7 @@
     "sbom.cyclonedx.json"
   ],
   "engines": {
-    "node": ">=20.15"
+    "node": ">=20.15.0"
   },
   "scripts": {
     "clean": "node scripts/clean-dist.mjs",
@@ -49,12 +50,13 @@
     "supply-chain:generate": "node scripts/generate-supply-chain.mjs",
     "supply-chain:check": "node scripts/generate-supply-chain.mjs --check",
     "connector:build": "npm run build && npm run check:connector && node scripts/build-connector.mjs && npm run check:secrets",
-    "verify": "npm test && npm run supply-chain:check && npm run connector:build && node scripts/verify-reproducible.mjs && npm run check:pack && npm run check:installed-graph && npm run audit:production",
-    "prepack": "npm run verify"
+    "verify": "npm test && npm run supply-chain:check && npm run connector:build && node scripts/verify-reproducible.mjs && npm run check:pack && npm run check:installed-graph && npm run check:manifest-install && npm run audit:production",
+    "prepack": "npm run verify",
+    "check:manifest-install": "node scripts/check-manifest-install.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.30.0",
-    "bailinghub-mcp-server": "0.3.0",
+    "bailinghub-mcp-server": "0.5.0",
     "zod": "4.4.3"
   },
   "devDependencies": {
@@ -64,5 +66,12 @@
   "directories": {
     "test": "tests"
   },
-  "keywords": []
+  "keywords": [
+    "bailinghub",
+    "百灵中枢",
+    "workbuddy",
+    "mcp",
+    "agent",
+    "business-operations"
+  ]
 }

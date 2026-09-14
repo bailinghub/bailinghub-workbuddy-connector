@@ -6,7 +6,7 @@ import { openSystemBrowser } from 'bailinghub-mcp-server/sdk';
 const MAX_FORM_BYTES = 16 * 1024;
 const DEFAULT_TIMEOUT_MS = 5 * 60 * 1_000;
 const LOOPBACK_HOSTS = new Set(['127.0.0.1', 'localhost', '[::1]']);
-const BRAND_MARK = `<svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="BailingHub">
+const BRAND_MARK = `<svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="百灵中枢">
   <rect width="1024" height="1024" fill="#0d1117"/>
   <g transform="translate(60 32) scale(4)">
     <path fill="#3fb950" fill-rule="evenodd" d="M42 44h34v152H54l-12-12zM76 44h58v34H76zM76 103h22v34H76zM76 162h58v34H76zM150 44h22l12 12v8h-34zM150 86h34v110h-34z"/>
@@ -38,7 +38,7 @@ function escapeHtml(value: string): string {
     .replaceAll("'", '&#39;');
 }
 
-function page(body: string, title = 'Connect BailingHub'): string {
+function page(body: string, title = '连接百灵中枢'): string {
   return `<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${escapeHtml(title)}</title><style>
@@ -62,12 +62,12 @@ function configurationHtml(
     ? `<div class="wide note"><label class="check"><input type="checkbox" name="linux_file_store" value="yes" required>
        <span>我确认在 Linux 上使用仅当前系统用户可读的 mode-0600 本地凭据文件。连接器不会把凭据写入 ZIP、Skill 或普通配置文件。</span></label></div>`
     : '';
-  return page(`<div class="brand">${BRAND_MARK}<span>BailingHub · WorkBuddy</span></div>
-    <h1>连接你的 BailingHub</h1>
+  return page(`<div class="brand">${BRAND_MARK}<span>百灵中枢 · WorkBuddy</span></div>
+    <h1>连接你的百灵中枢</h1>
     <p>这里只收集公开连接信息。提交后会打开业务系统自己的授权页；业务账号、密码、Token 和 Key 都不在本页填写。</p>
     <form method="post" action="/configure"><input type="hidden" name="csrf" value="${escapeHtml(csrf)}">
       <div class="grid">
-        <label class="wide">BailingHub 地址<input name="hub_url" type="url" required maxlength="2048" placeholder="https://hub.example.com" value="${escapeHtml(initial.hubUrl ?? '')}"><small>自建 BailingHub 的 HTTPS 地址；本机调试可用 127.0.0.1。</small></label>
+        <label class="wide">百灵中枢地址<input name="hub_url" type="url" required maxlength="2048" placeholder="https://hub.example.com" value="${escapeHtml(initial.hubUrl ?? '')}"><small>你使用的百灵中枢（BailingHub）HTTPS 地址；本机调试可用 127.0.0.1。</small></label>
         <label>Client App ID<input name="client_app_id" required maxlength="64" pattern="[a-z0-9][a-z0-9_-]{1,63}" placeholder="merchant-agent" value="${escapeHtml(initial.clientAppId ?? '')}"></label>
         <label>Workspace<input name="workspace" required maxlength="64" pattern="[a-z0-9][a-z0-9_-]{0,63}" placeholder="order-assistant" value="${escapeHtml(initial.workspace ?? '')}"></label>
         <label class="wide">连接名称<input name="connection_name" required maxlength="128" placeholder="my-business" value="${escapeHtml(initial.connectionName ?? 'default')}"><small>只是本机显示名称，不是业务身份。</small></label>
@@ -78,7 +78,7 @@ function configurationHtml(
 }
 
 function completedHtml(): string {
-  return page(`<div class="brand">${BRAND_MARK}<span>BailingHub · WorkBuddy</span></div>
+  return page(`<div class="brand">${BRAND_MARK}<span>百灵中枢 · WorkBuddy</span></div>
     <h1>连接信息已确认</h1><p>业务授权页将在新标签页打开。请在那里登录、选择业务身份并确认授权。</p>`, '连接信息已确认');
 }
 
@@ -87,14 +87,14 @@ function formTooLargeHtml(): string {
 }
 
 function normalizedHubUrl(value: string): string {
-  if (!URL.canParse(value)) throw new Error('BailingHub 地址必须是完整 URL。');
+  if (!URL.canParse(value)) throw new Error('百灵中枢地址必须是完整 URL。');
   const url = new URL(value);
   const loopback = LOOPBACK_HOSTS.has(url.hostname.toLowerCase());
   if (url.protocol !== 'https:' && !(url.protocol === 'http:' && loopback)) {
-    throw new Error('BailingHub 必须使用 HTTPS，仅本机回环地址允许 HTTP。');
+    throw new Error('百灵中枢必须使用 HTTPS，仅本机回环地址允许 HTTP。');
   }
   if (url.username || url.password || url.search || url.hash) {
-    throw new Error('BailingHub 地址不能包含凭据、查询参数或片段。');
+    throw new Error('百灵中枢地址不能包含凭据、查询参数或片段。');
   }
   url.pathname = url.pathname.replace(/\/+$/, '');
   return url.toString().replace(/\/$/, '');

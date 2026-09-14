@@ -1,24 +1,24 @@
 {
-  "name": "BailingHub 业务后台",
-  "name_zh": "BailingHub 业务后台",
+  "name": "百灵中枢",
+  "name_zh": "百灵中枢",
   "name_en": "BailingHub Business Operations",
-  "description": "让 WorkBuddy 直接查询和操作已接入 BailingHub 的业务后台，最终权限与业务规则仍由你的系统决定。",
-  "description_zh": "让 WorkBuddy 直接查询和操作已接入 BailingHub 的业务后台，最终权限与业务规则仍由你的系统决定。",
+  "description": "通过百灵中枢（BailingHub），让 WorkBuddy 查询和操作你已接入的业务后台；最终权限与业务规则仍由你的系统决定。",
+  "description_zh": "通过百灵中枢（BailingHub），让 WorkBuddy 查询和操作你已接入的业务后台；最终权限与业务规则仍由你的系统决定。",
   "description_en": "Let WorkBuddy operate systems connected to BailingHub while your system keeps final control.",
   "source": "bailinghub-agent-client",
   "type": "mcp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "minWorkbuddyVersion": "5.0.0",
   "examples_zh": [
-    "查看最近 7 天订单，并把异常订单整理出来",
-    "把库存低于 10 件的商品找出来，生成并执行补货计划",
-    "把员工资料修改为我刚才提供的内容",
-    "为这笔订单发起退款，如果需要审批先告诉我进度"
+    "查看商城最近 7 天订单，整理需要关注的订单",
+    "查询指定商品的库存，先告诉我是否支持修改",
+    "把指定商品的展示标题改为我确认的文案；需要审批时先报告进度",
+    "继续查看刚才那次操作的结果，不要重复提交"
   ],
   "examples_en": [
-    "Review orders from the last seven days and list the exceptions",
-    "Find products with fewer than ten units and execute a replenishment plan",
-    "Update the employee profile with the details I just provided",
-    "Start a refund for this order and tell me if approval is required"
+    "Review the last seven days of shop orders and flag orders needing attention",
+    "Check stock for the selected product and whether an update is available",
+    "Change the selected product title to the wording I confirmed; report any required approval",
+    "Check the original operation result without submitting a duplicate"
   ]
 }
